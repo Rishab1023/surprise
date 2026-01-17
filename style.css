@@ -8,73 +8,91 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--cream);
     margin: 0;
-    display: grid;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Use min-height for mobile-first */
-    overflow: hidden;
     color: #333;
-    text-align: center; /* Ensure body content is centered by default */
+    text-align: center;
+    /* We don't need flex/grid on the body for a scrolling page */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-.screen {
-    width: 90%;
-    height: 90vh; /* Mobile-first: use more vertical space by default */
-    background: white;
-    border-radius: 20px; /* Mobile-first: smaller radius by default */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* Lighter shadow for mobile */
-    padding: 15px; /* Mobile-first: smaller padding by default */
-    display: none;
+/* --- New Scrollable Section Styles --- */
+.scroll-section {
+    min-height: 100vh;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* Center items horizontally within screen */
-    animation: fadeIn 0.5s ease-in;
+    align-items: center;
+    padding: 40px 20px;
     box-sizing: border-box;
-    margin: auto; /* Ensure screen itself is centered if body isn't flex */
+    position: relative;
+    opacity: 0; /* Hidden by default for scroll animation */
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-.active { display: flex; }
+/* The first section should be visible by default */
+#screen1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content-wrapper {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+    box-sizing: border-box;
+}
 
 h1 { 
     color: var(--dark-pink); 
-    font-size: 1.8rem; /* Mobile-first: smaller font by default */
+    font-size: 1.8rem;
     margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 1.3rem; /* Mobile-first: smaller font by default */
+    font-size: 1.5rem;
     margin-bottom: 8px;
 }
 
 p {
-    font-size: 0.95rem; /* Mobile-first: smaller font by default */
+    font-size: 1rem;
     margin-bottom: 15px;
+    line-height: 1.6;
 }
 
-.screen img { /* Style for the image in screen1 */
-    max-width: 80px;
-    height: auto;
-    margin-bottom: 15px;
+.letter-box {
+    text-align: left;
+    font-style: italic;
+    background: #fff0f3;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-.screen div { /* For the love letter text */
-    padding: 10px;
+.final-message {
     font-size: 0.9rem;
-    line-height: 1.5;
+    padding: 10px;
 }
 
 button {
     background: var(--pink);
     border: none;
-    padding: 12px 25px; /* Mobile-first: default padding */
+    padding: 12px 25px;
     border-radius: 25px;
     color: white;
     font-weight: bold;
     cursor: pointer;
     margin-top: 15px;
     transition: 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Lighter shadow for buttons */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 button:hover { 
@@ -83,9 +101,9 @@ button:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Cake Cutting Area */
+/* --- Cake Styles (mostly unchanged) --- */
 #cake-container {
-    width: 150px; /* Mobile-first: smaller cake by default */
+    width: 150px;
     height: 150px;
     background: #fbd38d;
     border-radius: 50%;
@@ -101,7 +119,7 @@ button:hover {
     height: 4px;
     background: rgba(255, 255, 255, 0.8);
     top: 50%;
-    transform: translateY(-50%); /* Ensure knife line is perfectly centered */
+    transform: translateY(-50%);
     display: none;
 }
 
@@ -110,51 +128,61 @@ button:hover {
     margin-top: 10px;
 }
 
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- Confetti Canvas --- */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
 }
 
-/* Desktop/Tablet Optimizations (min-width for mobile-first) */
-@media (min-width: 481px) {
-    .screen {
-        max-width: 400px; /* Max-width for larger screens */
-        height: 80vh; /* Default height for larger screens */
-        border-radius: 30px; /* Larger radius for desktops */
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Stronger shadow for desktops */
-        padding: 20px; /* Larger padding for desktops */
-    }
 
+/* --- Scroll Down Indicator --- */
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: var(--pink);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+
+/* --- Desktop/Tablet Optimizations --- */
+@media (min-width: 768px) {
+    .content-wrapper {
+        padding: 40px;
+    }
     h1 {
-        font-size: 2.2rem; /* Larger font for desktops */
+        font-size: 2.5rem;
     }
-
     h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
-
     p {
         font-size: 1.1rem;
     }
-
-    .screen img {
-        max-width: 100px;
+    #cake-container {
+        width: 200px;
+        height: 200px;
     }
-
-    .screen div {
-        padding: 15px;
-        font-size: 1rem;
-    }
-
     button {
         padding: 15px 30px;
-        margin-top: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    #cake-container {
-        width: 200px; /* Larger cake for desktops */
-        height: 200px;
     }
 }
