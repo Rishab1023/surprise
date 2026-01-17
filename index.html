@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Parthvi!</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "canvas-confetti": "/node_modules/canvas-confetti/dist/confetti.module.mjs"
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="confetti-canvas"></canvas>
+
+    <div id="screen1" class="screen active">
+        <img src="" width="100" alt="">
+        <h1>Happy Birthday, Parthvi! 💖</h1>
+        <p>I've created something special just for you.</p>
+        <button onclick="nextScreen(2)">Let's Gooo</button>
+    </div>
+
+    <div id="screen2" class="screen">
+        <h2>💌 A Love Letter</h2>
+        <div style="text-align: left; font-style: italic; background: #fff0f3; padding: 15px; border-radius: 10px;">
+            "My dearest, today marks another year of your incredible existence. You bring so much joy into my life..."
+        </div>
+        <button onclick="nextScreen(3)">Continue it ✨</button>
+    </div>
+
+    <div id="screen3" class="screen">
+        <h2>🎂 It's Cake Time!</h2>
+        <p>Swipe across the cake to cut it!</p>
+        <div id="cake-container" onmousedown="startCut()" onmouseup="endCut()">
+            <div id="knife-line"></div>
+        </div>
+        <p id="cake-status">Waiting for the first slice...</p>
+        <button id="cake-next" style="display:none;" onclick="nextScreen(4)">Make a Wish!</button>
+    </div>
+
+    <div id="screen4" class="screen">
+        <h1>🥳 Surprise!</h1>
+        <p>Thank You for being my friend i know we are not friends anymore but i would like to thankyou for the time we were friends it was a good time i wish we would be friends again but i dont think that is possible so yeah but really thankyou so much for listening to my faltu ki baate and mereko jhelne ke liye!</p>
+        <button onclick="location.reload()">Replay ❤️</button>
+    </div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>

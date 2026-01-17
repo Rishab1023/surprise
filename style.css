@@ -1,0 +1,160 @@
+:root {
+    --pink: #ffafcc;
+    --dark-pink: #ff85a1;
+    --cream: #fff5f8;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cream);
+    margin: 0;
+    display: grid;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Use min-height for mobile-first */
+    overflow: hidden;
+    color: #333;
+    text-align: center; /* Ensure body content is centered by default */
+}
+
+.screen {
+    width: 90%;
+    height: 90vh; /* Mobile-first: use more vertical space by default */
+    background: white;
+    border-radius: 20px; /* Mobile-first: smaller radius by default */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* Lighter shadow for mobile */
+    padding: 15px; /* Mobile-first: smaller padding by default */
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center items horizontally within screen */
+    animation: fadeIn 0.5s ease-in;
+    box-sizing: border-box;
+    margin: auto; /* Ensure screen itself is centered if body isn't flex */
+}
+
+.active { display: flex; }
+
+h1 { 
+    color: var(--dark-pink); 
+    font-size: 1.8rem; /* Mobile-first: smaller font by default */
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.3rem; /* Mobile-first: smaller font by default */
+    margin-bottom: 8px;
+}
+
+p {
+    font-size: 0.95rem; /* Mobile-first: smaller font by default */
+    margin-bottom: 15px;
+}
+
+.screen img { /* Style for the image in screen1 */
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.screen div { /* For the love letter text */
+    padding: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+button {
+    background: var(--pink);
+    border: none;
+    padding: 12px 25px; /* Mobile-first: default padding */
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Lighter shadow for buttons */
+}
+
+button:hover { 
+    background: var(--dark-pink); 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Cake Cutting Area */
+#cake-container {
+    width: 150px; /* Mobile-first: smaller cake by default */
+    height: 150px;
+    background: #fbd38d;
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    border: 4px solid #ed8936;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#knife-line {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    top: 50%;
+    transform: translateY(-50%); /* Ensure knife line is perfectly centered */
+    display: none;
+}
+
+#cake-status {
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Desktop/Tablet Optimizations (min-width for mobile-first) */
+@media (min-width: 481px) {
+    .screen {
+        max-width: 400px; /* Max-width for larger screens */
+        height: 80vh; /* Default height for larger screens */
+        border-radius: 30px; /* Larger radius for desktops */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Stronger shadow for desktops */
+        padding: 20px; /* Larger padding for desktops */
+    }
+
+    h1 {
+        font-size: 2.2rem; /* Larger font for desktops */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    .screen img {
+        max-width: 100px;
+    }
+
+    .screen div {
+        padding: 15px;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 15px 30px;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    #cake-container {
+        width: 200px; /* Larger cake for desktops */
+        height: 200px;
+    }
+}
